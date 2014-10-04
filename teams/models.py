@@ -13,6 +13,7 @@ class Team(models.Model):
 class Player(models.Model):
     name = models.CharField(max_length=128)
     team = models.ForeignKey(Team)
+    owner = models.ForeignKey(User, default=None, null=True)
 
     def __str__(self):
         tpl = '{} ({})'
@@ -20,6 +21,10 @@ class Player(models.Model):
         return tpl.format(*args)
 
 
+class Tournament(models.Model):
+    name = models.CharField(max_length=128)
+    teams = models.ManyToManyField(to=Team)
+    owner = models.ForeignKey(User, default=None, null=True)
 
 
 
